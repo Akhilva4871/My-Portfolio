@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,53 @@
     <link rel="stylesheet" href="contact.css">
     <link rel="shortcut icon" type="image/x-icon" href="photos/AVA logo.png" />
 </head>
+
 <body>
     <div class="main">
-         <div class="background-image">
-        <div class="contact-form">
-            <h2>Contact Me</h2>
-            <form action="home.html">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Name" required>
+        <div class="background-image">
+            <div class="contact-form">
+                <h2>Contact Me</h2>
+                <form id="contact-form">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Name" required>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="E-mail" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="E-mail" required>
 
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" placeholder="Write your message here" required></textarea>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Write your message here"
+                        required></textarea>
 
-                <button type="submit">Send</button>
-            </form>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
         </div>
     </div>
-    </div>
 </body>
+
+<script>
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const data = new FormData(form);
+
+        fetch("https://formspree.io/f/xeogznkj", {
+            method: "POST",
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                alert("Message sent successfully!");
+                window.location.href = "home.html";
+            } else {
+                alert("Oops! Something went wrong.");
+            }
+        }).catch(error => {
+            alert("Error: " + error);
+        });
+    });
+</script>
+
+
 </html>
